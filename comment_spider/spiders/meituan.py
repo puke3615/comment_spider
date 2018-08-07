@@ -41,12 +41,12 @@ class MeituanSpider(Spider):
                 print('=' * 200)
             print('%d. %s' % (self.shop_index, title))
             self.shop_index += 1
-            dump_comment_data(item['poiId'])
+            dump_comment_data(item['poiId'], get_root_path('data/comment3'), sub_dir=True)
         self.page += 1
         yield Request(get_url(self.page))
 
     def _parse_poiInfos(self, response):
-        html = response.text.encode('utf-8')
+        html = response.text
         pattern = '(?<=<script>window\._appState\s=\s).*(?=;<\/script>)'
         result = re.findall(pattern, html)
         json_data = json.loads(result[0])
